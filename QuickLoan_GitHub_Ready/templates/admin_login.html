@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Admin login | QuickLoan Demo{% endblock %}
+{% block content %}
+<section class="form-card narrow">
+  <p class="eyebrow">RESTRICTED AREA</p>
+  <h1>Admin sign in</h1>
+  <p class="muted">For the owner of this demonstration website only.</p>
+  <form method="post">
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" required>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button class="button full" type="submit">Sign in</button>
+  </form>
+</section>
+{% endblock %}

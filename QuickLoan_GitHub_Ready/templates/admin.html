@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard | QuickLoan Demo{% endblock %}
+{% block content %}
+<div class="dashboard-heading">
+  <div><p class="eyebrow">ADMINISTRATION</p><h1>Dashboard</h1><p class="muted">Manage demonstration applications and temporary link records.</p></div>
+  <form method="post" action="{{ url_for('admin_logout') }}"><button class="button secondary" type="submit">Log out</button></form>
+</div>
+
+<section class="panel">
+  <h2>Applications ({{ applications|length }})</h2>
+  {% if applications %}
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Ref.</th><th>Applicant</th><th>Phone</th><th>Amount</th><th>Purpose</th><th>Submitted</th><th>Status</th><th>Update</th></tr></thead>
+      <tbody>
+      {% for item in applications %}
+        <tr>
+          <td>#{{ item["id"] }}</td><td>{{ item["full_name"] }}</td><td>{{ item["phone"] }}</td>
+          <td>{{ "%.2f"|format(item["amount"]) }}</td><td>{{ item["purpose"] }}</td>
+          <td>{{ item["created_at"][:16].replace("T", " ") }}</td>
+          <td><span class="status-pill">{{ item["status"] }}</span></td>
+          <td>
+            <form class="inline-form" method="post" action="{{ url_for('update_status', app_id=item['id']) }}">
+              <select name="status" aria-label="New status for application {{ item['id'] }}">
+                {% for option in ["Pending", "Under Review", "Approved", "Declined"] %}
+                <option value="{{ option }}" {% if item["status"] == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+              </select>
+              <button class="button small-button" type="submit">Save</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}<p class="muted">No applications have been submitted yet.</p>{% endif %}
+</section>
+
+<section class="panel">
+  <h2>Create a temporary link</h2>
+  <p class="muted">This demo link only validates expiry/revocation and then sends the visitor to the normal admin login. It does not grant login access.</p>
+  <form class="link-form" method="post" action="{{ url_for('create_link') }}">
+    <label for="minutes">Valid for</label>
+    <select id="minutes" name="minutes">
+      <option value="15">15 minutes</option><option value="60" selected>1 hour</option>
+      <option value="360">6 hours</option><option value="1440">24 hours</option><option value="10080">7 days</option>
+    </select>
+    <button class="button" type="submit">Create link</button>
+  </form>
+  {% if links %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>ID</th><th>Created (UTC)</th><th>Expires (UTC)</th><th>State</th><th>Action</th></tr></thead>
+    <tbody>{% for link in links %}
+      <tr><td>{{ link["id"] }}</td><td>{{ link["created_at"][:16] }}</td><td>{{ link["expires_at"][:16] }}</td>
+      <td>{% if link["revoked"] %}Revoked{% else %}Active record{% endif %}</td>
+      <td>{% if not link["revoked"] %}
+        <form method="post" action="{{ url_for('revoke_link', link_id=link['id']) }}"><button class="button danger small-button" type="submit">Revoke</button></form>
+      {% else %}—{% endif %}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+</section>
+{% endblock %}

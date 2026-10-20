@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Home | QuickLoan Demo{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">SIMPLE • CLEAR • DEMO ONLY</p>
+    <h1>A simpler way to demonstrate a loan application.</h1>
+    <p>Explore a sample application process, submit demo details, and check the status using your reference number.</p>
+    <div class="actions">
+      <a class="button" href="{{ url_for('apply') }}">Start an application</a>
+      <a class="button secondary" href="{{ url_for('status') }}">Check application</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="card-icon">✓</div>
+    <h3>Application demo</h3>
+    <p>Submit a sample request and receive a reference number.</p>
+    <hr>
+    <p class="small">This is not a financial institution and does not provide real credit.</p>
+  </div>
+</section>
+<section class="feature-grid">
+  <article class="feature"><h3>Easy to use</h3><p>A clean form designed for desktop and mobile screens.</p></article>
+  <article class="feature"><h3>Track a request</h3><p>Use your application reference number to view the current demo status.</p></article>
+  <article class="feature"><h3>Admin dashboard</h3><p>Authorized demo administrators can review requests and update statuses.</p></article>
+</section>
+{% endblock %}

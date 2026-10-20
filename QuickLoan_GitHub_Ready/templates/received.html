@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Application received | QuickLoan Demo{% endblock %}
+{% block content %}
+<section class="form-card centered">
+  <div class="success-mark">✓</div>
+  <p class="eyebrow">SUBMISSION COMPLETE</p>
+  <h1>Demo application received</h1>
+  <p>Hello {{ application["full_name"] }}, your sample request has been saved.</p>
+  <div class="reference-box">
+    <span>Application reference</span>
+    <strong>#{{ application["id"] }}</strong>
+    <span>Status: {{ application["status"] }}</span>
+  </div>
+  <p class="small muted">Keep this reference number to check the demo status later.</p>
+  <a class="button" href="{{ url_for('status') }}">Check status</a>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} | QuickLoan Demo{% endblock %}
+{% block content %}
+<section class="form-card centered">
+  <p class="eyebrow">ERROR {{ code }}</p>
+  <h1>Something went wrong</h1>
+  <p>{{ message }}</p>
+  <a class="button" href="{{ url_for('index') }}">Return home</a>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Apply | QuickLoan Demo{% endblock %}
+{% block content %}
+<section class="form-card">
+  <p class="eyebrow">DEMO APPLICATION</p>
+  <h1>Application form</h1>
+  <p class="muted">Use sample information only. Do not enter bank PINs, passwords, or one-time codes.</p>
+  <form method="post">
+    <label for="full_name">Full name</label>
+    <input id="full_name" name="full_name" type="text" maxlength="100" required>
+
+    <label for="phone">Phone number</label>
+    <input id="phone" name="phone" type="tel" maxlength="30" placeholder="e.g. 07XX XXX XXX" required>
+
+    <label for="amount">Requested amount (demo)</label>
+    <input id="amount" name="amount" type="number" min="1" max="10000000" step="1" required>
+
+    <label for="purpose">Purpose of application</label>
+    <select id="purpose" name="purpose" required>
+      <option value="">Choose one</option>
+      <option>Education</option>
+      <option>Business</option>
+      <option>Emergency</option>
+      <option>Personal needs</option>
+      <option>Other</option>
+    </select>
+    <button class="button full" type="submit">Submit demo application</button>
+  </form>
+</section>
+{% endblock %}
